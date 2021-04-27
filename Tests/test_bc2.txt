@@ -1,0 +1,4 @@
+TELL
+L&M => P; B&L => M; A&B=>L; X=> Q; P => Q; F => X; G => X; L => G; A; B;
+ASK
+Q

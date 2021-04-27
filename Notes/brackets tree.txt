@@ -1,0 +1,45 @@
+-----------------------------
+Nested Brackets:
+
+(avb => (c ^ d))
+
+root [#]
+	child[avb=>#]
+		child[c^d]
+
+-----------------------------
+Adjacent Brackets:
+
+(avb)=>(cvd)
+
+root [#=>#]
+	child [avb]
+	child [cvd]	
+
+-----------------------------
+Complex Example:
+
+a v ~(c ^ (~a v b)) => (e v d)
+
+root [av~#=>#]
+	child [c^#]
+		child [~avb]
+	child [evd]
+
+-----------------------------
+Missing Close Bracket Example:
+
+a => (c v (b)
+
+root [a=>#]
+	child [cv#]
+		child [b] ERROR: Open bracket was not attached to a close bracket
+
+-----------------------------
+Missing Open Bracket Example:
+
+a => (b v c) ^ (a v d))
+
+root [a=>#^# ERROR: Close bracket was not attached to an open bracket
+	child [bvc]
+	child [avd]

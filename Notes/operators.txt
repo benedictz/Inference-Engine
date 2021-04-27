@@ -1,0 +1,96 @@
+-------------------------------
+ASSERT
+-------------------------------
+
+IMPLICATION [A => C]
+If A evaluates to TRUE, add C to the KB
+If A evaluates to FALSE, do nothing
+If A evaluates to NULL, do nothing
+
+BICONDITION [A <=> C]
+If A evaluates to TRUE, add C to the KB
+If A evaluates to FALSE, add ~C to the KB
+If A evaluates to NULL, do nothing
+
+If C evaluates to TRUE, add A to the KB
+If C evaluates to FALSE, add ~A to the KB
+If C evaluates to NULL, do nothing
+
+CONJUNCTION [A & C]
+Add A to the KB
+Add C to the KB
+
+DISJUNCTION [A || C]
+If A evaluates to FALSE, add C to the KB
+If C evaluates to FALSE, add A to the KB
+
+CONSTANT [A]
+A is already a fact, this asserts no new information.
+
+-------------------------------
+EVALUATE
+-------------------------------
+
+IMPLICATION [A => C]
+  T F U
+ /------
+T|T F U
+F|T T T
+U|T U U
+
+BICONDITION [A <=> C]
+
+  T F U
+ /------
+T|T F U
+F|F T U
+U|U U U
+
+CONJUNCTION [A & C]
+
+  T F U
+ /------
+T|T F U
+F|F F F
+U|U F U
+
+DISJUNCTION [A || C]
+  T F U
+ /------
+T|T T T
+F|T F U
+U|T U U
+
+CONSTANT [A]
+(This compares A to any A in the KB)
+  T F U
+ /------
+T|T F U
+F|F T U
+U|U U T
+
+-------------------------------
+EXAMPLE
+-------------------------------
+KB contains AvB=>C;A;
+
+Assert [A v B] => [C]
+	Evaluate [A] v [B]
+		Search KB for [A v B] rule
+			Returns NULL
+
+		Evaluate [A]
+			Returns TRUE
+
+		Evaluate [B]
+			Returns NULL
+
+		Return [A] v [B] = TRUE
+
+	Insert [C] into KB because evaluation was true
+	Return TRUE because new information was added to KB
+
+Assert [A]
+	Does nothing
+
+Final KB contains AvB=>C;A;C;
